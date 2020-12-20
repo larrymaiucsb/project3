@@ -239,6 +239,7 @@ Node* deleteh(Node* root, int num, int decimal){
     // This is the node to be deleted  
     else
     {  
+      cout<< "found node to delete" << endl;
         // node with only one child or no child  
         if( (root->left == NULL) || 
             (root->right == NULL) )  
@@ -325,5 +326,32 @@ void avl::Delete(int num, int decimal){
   this->root = deleteh(this->root, num, decimal);
 }
 
-  
+bool findh(struct Node* node, int num, int decimal)
+{
+    if (node == NULL)
+        return false;
+ 
+    if ((node->num == num) && (node->decimal == decimal))
+        return true;
+ 
+    /* then recur on left sutree */
+    bool res1 = findh(node->left, num,decimal);
+    // node found, no need to look further
+    if(res1) return true; 
+ 
+    /* node is not found in left, 
+    so recur on right subtree */
+    bool res2 = findh(node->right, num,decimal);
+ 
+    return res2;
+} 
+
+void avl::search(int num, int decimal){
+  if( findh(this->root, num, decimal)){
+    cout << num << "." << decimal << " found" << endl;
+  }
+  else{
+    cout << num << "." << decimal << " not found" << endl;
+  }
+}
 

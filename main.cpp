@@ -14,7 +14,9 @@ int main(){
     a.insert(40,0);
     a.insert(50,0);
     a.insert(25,0);
-    a.Delete(25,0);
+    a.Delete(10,0);
+    a.search(99,0);
+    a.search(50,0);
 
 
     cout << "Preorder traversal of the "
