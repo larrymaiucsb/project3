@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace std;
-
+/*
 void avl::preorder() const {
     preorder(root);
 }
@@ -11,11 +11,97 @@ void avl::in_order() const {
   in_order(root);
 }
 
+*/
 
 
-Node* newNode(int key) {  
+
+    int height(Node *t){
+      return t == nullptr ? -1 :t->height;
+    }
+
+    int max(int a, int b) { 
+      return (a > b)? a : b; 
+} 
+
+
+
+Node *lr(Node *x)  {  
+    Node *y = x->right;  
+    Node *T2 = y->left;  
+  
+     
+    y->left = x;  
+    x->right = T2;  
+  
+      
+    x->height = max(height(x->left),     
+                    height(x->right)) + 1;  
+    y->height = max(height(y->left),  
+                    height(y->right)) + 1;  
+  
+     
+    return y;  
+}  
+
+Node *rr(Node *y)  {  
+    Node *x = y->left;  
+    Node *T2 = x->right;  
+  
+    
+    x->right = y;  
+    y->left = T2;  
+  
+     
+    y->height = max(height(y->left), 
+                    height(y->right)) + 1;  
+    x->height = max(height(x->left), 
+                    height(x->right)) + 1;  
+  
+    
+    return x;  
+} 
+
+
+
+
+
+
+bool biggerkey(int num1, int decimal1, int num2, int decimal2){
+  if((num1 > num2)|| (num1 == num2)){
+    if(decimal1 > decimal2){
+      return true;
+    }
+    else if(num1 > num2){
+      return true;
+    }
+  }
+  else if(num1 < num2){
+    return false;
+  }
+
+  
+}
+/*
+void avl::preorder(Node *n) const {
+    if (n) {
+      cout << n->num << n->decimal << " ";
+      preorder(n->left);
+      preorder(n->right);
+    }
+  }
+  void avl::in_order(Node *n) const{
+    if (n) {
+      in_order(n->left);
+      cout << n->num << n->decimal  << " ";
+      in_order(n->right);
+    }
+  } 
+  
+*/
+Node* newNode(int num, int decimal) {  
     Node* node = new Node(); 
-    node->key = key;  
+    node->num = num;  
+    node->decimal = decimal;
     node->left = NULL;  
     node->right = NULL;  
     node->height = 1; 
@@ -31,34 +117,32 @@ int balancef(Node* n){
   }
 }
 
-void avl::insert(int num, int decimal){
-  this->root = insertH(this->root, num, decimal);
-}
 
 
-avl::Node* avl::insertH(Node* n, int num, int decimal){
+
+Node* insertH(Node* n, int num, int decimal){
   if(n == NULL){
     return newNode(num, decimal);
   }
 
-  if(n->num == num) &&(n->decimal == decimal){
+  if((n->num == num) &&(n->decimal == decimal)){
     return n;
   }
 
   else if(biggerkey(n->num, n->decimal, num, decimal) == true){
-    node->left = insertH(node->left, int num, int decimal);
+    n->left = insertH(n->left, num, decimal);
   }
 
   else{
-    node->right= insertH(node->right, int num, int decimal);
+    n->right= insertH(n->right, num, decimal);
 
   }
   
 
 
-  n->height = 1 + max(height(node->left),height(node->right));
+  n->height = 1 + max(height(n->left),height(n->right));
 
-  int balance = balancef(node);
+  int balance = balancef(n);
 
   if(biggerkey(n->left->num, n->left->decimal, num, decimal) && balance > 1){
     return rr(n);
@@ -79,6 +163,15 @@ avl::Node* avl::insertH(Node* n, int num, int decimal){
   }
 
 
+}
+
+void avl::insert(int num, int decimal){
+  if(this->root == NULL){
+    this->root = newNode(num,decimal);
+  }
+  else{
+    this->root = insertH(this->root, num, decimal);
+  }
 }
 
 

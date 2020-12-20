@@ -1,4 +1,5 @@
 #include <iostream>
+#include "avl.h"
 
 using namespace std;
 
@@ -7,17 +8,17 @@ int main(){
      Node *root = NULL;  
       
 
-    root = insert(root, 10);  
-    root = insert(root, 20);  
-    root = insert(root, 30);  
-    root = insert(root, 40);  
-    root = insert(root, 50);  
-    root = insert(root, 25);  
+    root = insert(45,3);  
+    root = insert(31,1);  
+    root = insert(30,5);  
+    root = insert(26,6);  
+    root = insert(25,1);  
+    root = insert(25,2);  
       
 
     cout << "Preorder traversal of the "
             "constructed AVL tree is \n";  
-    preOrder(root);  
+    preorder(root);  
       
     return 0;  
 }  
