@@ -42,7 +42,7 @@ class avl{
       in_order(n->right);
     }
   }
-Node *leftRotate(Node *x)  {  
+Node *lr(Node *x)  {  
     Node *y = x->right;  
     Node *T2 = y->left;  
   
@@ -60,7 +60,7 @@ Node *leftRotate(Node *x)  {
     return y;  
 }  
 
-Node *rightRotate(Node *y)  {  
+Node *rr(Node *y)  {  
     Node *x = y->left;  
     Node *T2 = x->right;  
   
@@ -78,6 +78,26 @@ Node *rightRotate(Node *y)  {
     return x;  
 } 
 
+
+
+
+
+
+bool biggerkey(int num1, int decimal1, int num2, int decimal2){
+  if((num1 > num2)|| (num1 == num2)){
+    if(decimal1 > decimal2){
+      return true;
+    }
+    else if(num1 > num2){
+      return true;
+    }
+  }
+  else if(num1 < num2){
+    return false;
+  }
+
+  
+}
 
 
 
