@@ -3,18 +3,20 @@
 
 using namespace std;
 
-void avl::insert(int num, int decimal, Node * & t){
-  int whole = num+decimal;
-  if (t == nullptr){
-    t = new Node{
-      whole, nullptr, nullptr 
-      };
-      else if(whole < t->element){
-        insert(whole, t->left);
-      }
-      else if(t->element < whole)
-
-    }
-  }
-
+void avl::preorder() const {
+    preorder(root);
 }
+
+void avl::in_order() const {
+  in_order(root);
+}
+
+void avl::Node* insert(Node* n, int key){
+  if(n == NULL){
+    n 
+
+  }
+}
+
+  
+
