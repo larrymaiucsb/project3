@@ -23,17 +23,17 @@ class avl{
     bool search(int num, int decimal);
     void approx_search(int num, int decimal);
     
-    /*
-    void in_order();
-    void preorder();
-    */
+    
+    void in_order() const;
+    void preorder() const;
+    
     Node *root = NULL;
 
   private:
-  /*
-    string in_order(Node* n);
-    string preorder(Node* n);
-    */
+  
+    void in_order(Node* n) const;
+    void preorder(Node* n) const;
+    
 };
 
 

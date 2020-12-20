@@ -5,20 +5,16 @@ using namespace std;
 
 
 int main(){
-     Node *root = NULL;  
+    avl a;
       
+    cout << "humguh" << endl;
+    a.insert(33,1);
+    a.insert(34,5);
 
-    root = insert(45,3);  
-    root = insert(31,1);  
-    root = insert(30,5);  
-    root = insert(26,6);  
-    root = insert(25,1);  
-    root = insert(25,2);  
-      
 
     cout << "Preorder traversal of the "
             "constructed AVL tree is \n";  
-    preorder(root);  
+    a.preorder();  
       
-    return 0;  
+    
 }  

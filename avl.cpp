@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace std;
-/*
+
 void avl::preorder() const {
     preorder(root);
 }
@@ -11,7 +11,7 @@ void avl::in_order() const {
   in_order(root);
 }
 
-*/
+
 
 
 
@@ -69,6 +69,7 @@ Node *rr(Node *y)  {
 bool biggerkey(int num1, int decimal1, int num2, int decimal2){
   if((num1 > num2)|| (num1 == num2)){
     if(decimal1 > decimal2){
+      cout << "num1 bigger" << endl;
       return true;
     }
     else if(num1 > num2){
@@ -81,23 +82,23 @@ bool biggerkey(int num1, int decimal1, int num2, int decimal2){
 
   
 }
-/*
+
 void avl::preorder(Node *n) const {
-    if (n) {
-      cout << n->num << n->decimal << " ";
+    if (n != NULL) {
+      cout << n->num << "." <<  n->decimal << " ";
       preorder(n->left);
       preorder(n->right);
     }
   }
   void avl::in_order(Node *n) const{
-    if (n) {
+    if (n != NULL) {
       in_order(n->left);
-      cout << n->num << n->decimal  << " ";
+      cout << n->num << "." << n->decimal  << " ";
       in_order(n->right);
     }
   } 
   
-*/
+
 Node* newNode(int num, int decimal) {  
     Node* node = new Node(); 
     node->num = num;  
@@ -134,34 +135,48 @@ Node* insertH(Node* n, int num, int decimal){
   }
 
   else{
+    cout << "inserting right" << endl;
     n->right= insertH(n->right, num, decimal);
+    cout << "inserted right" << endl;
 
   }
   
 
 
   n->height = 1 + max(height(n->left),height(n->right));
-
+  cout << "finished height" << endl;
   int balance = balancef(n);
+  cout << "finished balance" << endl;
+  cout << n->left->num << endl;
+  cout << "dasdasdasdasdad" << endl;
+  if((balance > 1) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
 
-  if(biggerkey(n->left->num, n->left->decimal, num, decimal) && balance > 1){
+    cout << "did a left left case" << endl;
     return rr(n);
   }
 
-  if(biggerkey(num, decimal, n->right->num, n->right->decimal)==true && balance <-1) {
+  cout << "not ll" << endl;
+
+  if((balance <-1) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
+    cout << "did a right right case" << endl;
     return lr(n);
   }
+  cout << "not rr" << endl;
 
-  if(biggerkey(num, decimal, n->left->num, n->left->decimal)==true && balance >1){
+  if((balance > 1)  &&  biggerkey(num, decimal, n->left->num, n->left->decimal)){
+    cout << "lr" << endl;
     n->left = lr(n->left);
     return rr(n);
   }
+  cout << "not lr" << endl;
 
-  if(biggerkey(n->left->num, n->left->decimal, num, decimal) && balance > 1){
+  if((balance < -1) && biggerkey(n->left->num, n->left->decimal, num, decimal)  ==true){
+    cout << "rl" << endl;
     n->right = rr(n->right);
     return lr(n);
   }
-
+cout << "not rl" << endl;
+  return n;
 
 }
 
@@ -170,6 +185,7 @@ void avl::insert(int num, int decimal){
     this->root = newNode(num,decimal);
   }
   else{
+    
     this->root = insertH(this->root, num, decimal);
   }
 }
