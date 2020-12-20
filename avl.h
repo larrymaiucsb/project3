@@ -9,11 +9,13 @@ using namespace std;
 class Node  
 {  
     public:   
-    Node *left;  
-    Node *right;  
+    Node *left = nullptr;  
+    Node *right = nullptr;  
     int height; 
     int num;
     int decimal; 
+
+    
 };  
 
 class avl{

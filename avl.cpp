@@ -81,8 +81,24 @@ bool biggerkey(int num1, int decimal1, int num2, int decimal2){
   }
 
   
-}
+} 
+/*
 
+bool biggerkey(int num1, int decimal1, int num2, int decimal2){
+  if(num1 > num2){
+    return true;
+  }
+  else if(num1 == num2){
+    if(decimal1 > decimal2){
+      return true;
+    }
+    
+  }
+  else if(num1 < num2){
+    return false;
+  }
+}
+*/
 void avl::preorder(Node *n) const {
     if (n != NULL) {
       cout << n->num << "." <<  n->decimal << " ";
@@ -122,7 +138,7 @@ int balancef(Node* n){
 
 
 Node* insertH(Node* n, int num, int decimal){
-  if(n == NULL){
+  if(n == nullptr){
     return newNode(num, decimal);
   }
 
@@ -147,7 +163,6 @@ Node* insertH(Node* n, int num, int decimal){
   cout << "finished height" << endl;
   int balance = balancef(n);
   cout << "finished balance" << endl;
-  cout << n->left->num << endl;
   cout << "dasdasdasdasdad" << endl;
   if((balance > 1) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
 
@@ -169,8 +184,8 @@ Node* insertH(Node* n, int num, int decimal){
     return rr(n);
   }
   cout << "not lr" << endl;
-
-  if((balance < -1) && biggerkey(n->left->num, n->left->decimal, num, decimal)  ==true){
+cout << n->left->num << endl;
+  if((balance < -1) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
     cout << "rl" << endl;
     n->right = rr(n->right);
     return lr(n);

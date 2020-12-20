@@ -8,13 +8,20 @@ int main(){
     avl a;
       
     cout << "humguh" << endl;
-    a.insert(33,1);
-    a.insert(34,5);
+    a.insert(10,0);
+    a.insert(20,0);
+    a.insert(30,0);
+    a.insert(40,0);
+    a.insert(50,0);
+    a.insert(25,0);
+
 
 
     cout << "Preorder traversal of the "
-            "constructed AVL tree is \n";  
+            "constructed AVL tree is " << endl; 
     a.preorder();  
+    cout << "inorder traversal" << endl;
+    a.in_order();
       
     
 }  
