@@ -22,6 +22,7 @@ int main(){
     cout << "Preorder traversal of the "
             "constructed AVL tree is " << endl; 
     a.preorder();  
+    
     cout << "inorder traversal" << endl;
     a.in_order();
       

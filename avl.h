@@ -11,7 +11,7 @@ class Node
     public:   
     Node *left = nullptr;  
     Node *right = nullptr;  
-    int height; 
+    int height = 1; 
     int num;
     int decimal; 
 
@@ -24,6 +24,8 @@ class avl{
     void Delete(int num, int decimal);
     void search(int num, int decimal);
     void approx_search(int num, int decimal);
+
+    int max(int a, int b);
     
     
     void in_order() const;

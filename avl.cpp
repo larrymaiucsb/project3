@@ -19,7 +19,7 @@ void avl::in_order() const {
       return t == nullptr ? -1 :t->height;
     }
 
-    int max(int a, int b) { 
+    int avl::max(int a, int b) { 
       return (a > b)? a : b; 
 } 
 
@@ -101,15 +101,16 @@ bool biggerkey(int num1, int decimal1, int num2, int decimal2){
 */
 void avl::preorder(Node *n) const {
     if (n != NULL) {
-      cout << n->num << "." <<  n->decimal << " ";
+      cout << n->num << "." <<  n->decimal << " " << endl;
       preorder(n->left);
       preorder(n->right);
+      
     }
   }
   void avl::in_order(Node *n) const{
     if (n != NULL) {
       in_order(n->left);
-      cout << n->num << "." << n->decimal  << " ";
+      cout << n->num << "." << n->decimal  << " " << endl;
       in_order(n->right);
     }
   } 
@@ -129,7 +130,15 @@ int balancef(Node* n){
   if (n == NULL){
     return 0;
   }
+
+  else if(n->left == NULL){
+    return 0 - height(n->right);
+  }
   else{
+    cout << "printing left" << endl;
+    cout << height(n->left) << endl;
+    cout << "printing right" << endl;
+    cout << height(n->right) << endl;
     return height(n->left)- height(n->right);
   }
 }
@@ -163,7 +172,7 @@ Node* insertH(Node* n, int num, int decimal){
   cout << "finished height" << endl;
   int balance = balancef(n);
   cout << "finished balance" << endl;
-  cout << "dasdasdasdasdad" << endl;
+  cout << balance << endl;
   if((balance > 1) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
 
     cout << "did a left left case" << endl;
@@ -172,7 +181,8 @@ Node* insertH(Node* n, int num, int decimal){
 
   cout << "not ll" << endl;
 
-  if((balance <-1) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
+  if((balance < -1) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
+    cout << balance << endl;
     cout << "did a right right case" << endl;
     return lr(n);
   }
@@ -184,7 +194,7 @@ Node* insertH(Node* n, int num, int decimal){
     return rr(n);
   }
   cout << "not lr" << endl;
-cout << n->left->num << endl;
+
   if((balance < -1) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
     cout << "rl" << endl;
     n->right = rr(n->right);
@@ -355,3 +365,6 @@ void avl::search(int num, int decimal){
   }
 }
 
+void avl::approx_search(int num, int decimal){
+
+}
