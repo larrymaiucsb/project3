@@ -206,5 +206,124 @@ void avl::insert(int num, int decimal){
 }
 
 
+
+Node * minValueNode(Node* node)  
+{  
+    Node* current = node;  
+  
+    /* loop down to find the leftmost leaf */
+    while (current->left != NULL)  
+        current = current->left;  
+  
+    return current;  
+}  
+
+Node* deleteh(Node* root, int num, int decimal){
+  // STEP 1: PERFORM STANDARD BST DELETE  
+    if (root == NULL)  
+        return root;  
+  
+    // If the key to be deleted is smaller  
+    // than the root's key, then it lies 
+    // in left subtree  
+    if (biggerkey(root->num,root->decimal,num,decimal))  
+        root->left = deleteh(root->left, num, decimal);  
+  
+    // If the key to be deleted is greater  
+    // than the root's key, then it lies  
+    // in right subtree  
+    else if(biggerkey(num,decimal,root->num,root->decimal))  
+        root->right = deleteh(root->right, num,decimal);  
+  
+    // if key is same as root's key, then  
+    // This is the node to be deleted  
+    else
+    {  
+        // node with only one child or no child  
+        if( (root->left == NULL) || 
+            (root->right == NULL) )  
+        {  
+            Node *temp = root->left ?  
+                         root->left :  
+                         root->right;  
+  
+            // No child case  
+            if (temp == NULL)  
+            {  
+                temp = root;  
+                root = NULL;  
+            }  
+            else // One child case  
+            *root = *temp; // Copy the contents of  
+                           // the non-empty child  
+            free(temp);  
+        }  
+        else
+        {  
+            // node with two children: Get the inorder  
+            // successor (smallest in the right subtree)  
+            Node* temp = minValueNode(root->right);  
+  
+            // Copy the inorder successor's  
+            // data to this node  
+            root->num = temp->num;  
+            root->decimal = temp->decimal;
+  
+            // Delete the inorder successor  
+            root->right = deleteh(root->right,  
+                                     temp->num,temp->decimal);  
+        }  
+    }  
+  
+    // If the tree had only one node 
+    // then return  
+    if (root == NULL)  
+    return root;  
+  
+    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE  
+    root->height = 1 + max(height(root->left),  
+                           height(root->right));  
+  
+    // STEP 3: GET THE BALANCE FACTOR OF  
+    // THIS NODE (to check whether this  
+    // node became unbalanced)  
+    int balance = balancef(root);  
+  
+    // If this node becomes unbalanced,  
+    // then there are 4 cases  
+  
+    // Left Left Case  
+    if (balance > 1 &&  
+        balancef(root->left) >= 0)  
+        return rr(root);  
+  
+    // Left Right Case  
+    if (balance > 1 &&  
+        balancef(root->left) < 0)  
+    {  
+        root->left = lr(root->left);  
+        return rr(root);  
+    }  
+  
+    // Right Right Case  
+    if (balance < -1 &&  
+       balancef(root->right) <= 0)  
+        return lr(root);  
+  
+    // Right Left Case  
+    if (balance < -1 &&  
+        balancef(root->right) > 0)  
+    {  
+        root->right = rr(root->right);  
+        return lr(root);  
+    }  
+  
+    return root;  
+}
+
+void avl::Delete(int num, int decimal){
+  this->root = deleteh(this->root, num, decimal);
+}
+
   
 
