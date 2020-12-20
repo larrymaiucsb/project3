@@ -11,10 +11,10 @@ void avl::in_order() const {
   in_order(root);
 }
 
-void avl::Node* insert(Node* n, int key){
-  if(n == NULL){
-    n 
+void avl::Node* insert(Node* n, int num){
+    n = new Node { x, nullptr, nullptr};
 
+    else if(
   }
 }
 
