@@ -1,5 +1,7 @@
 #include "avl.h"
 #include <iostream>
+#include <stdlib.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
@@ -236,15 +238,17 @@ Node* deleteh(Node* root, int num, int decimal){
     // If the key to be deleted is smaller  
     // than the root's key, then it lies 
     // in left subtree  
-    if (biggerkey(root->num,root->decimal,num,decimal))  
+    if (biggerkey(root->num,root->decimal,num,decimal)){ 
+      cout << "lies in right subtree for deletion" << endl;
         root->left = deleteh(root->left, num, decimal);  
-  
+    }
     // If the key to be deleted is greater  
     // than the root's key, then it lies  
     // in right subtree  
-    else if(biggerkey(num,decimal,root->num,root->decimal))  
+    else if(biggerkey(num,decimal,root->num,root->decimal)){
+      cout << "lies in right subtree for deletion" << endl;
         root->right = deleteh(root->right, num,decimal);  
-  
+    }
     // if key is same as root's key, then  
     // This is the node to be deleted  
     else
@@ -283,6 +287,7 @@ Node* deleteh(Node* root, int num, int decimal){
             // Delete the inorder successor  
             root->right = deleteh(root->right,  
                                      temp->num,temp->decimal);  
+            cout<< "inorder succ deleted" << endl;
         }  
     }  
   
@@ -333,7 +338,7 @@ Node* deleteh(Node* root, int num, int decimal){
 }
 
 void avl::Delete(int num, int decimal){
-  this->root = deleteh(this->root, num, decimal);
+  cout << deleteh(this->root, num, decimal) << endl;
 }
 
 bool findh(struct Node* node, int num, int decimal)
@@ -356,6 +361,7 @@ bool findh(struct Node* node, int num, int decimal)
     return res2;
 } 
 
+
 void avl::search(int num, int decimal){
   if( findh(this->root, num, decimal)){
     cout << num << "." << decimal << " found" << endl;
@@ -365,6 +371,49 @@ void avl::search(int num, int decimal){
   }
 }
 
+
+
+void asearchhelper(struct Node* n, int num, int decimal, int &min_diff,int &min_diff_num, int &min_diff_decimal){
+    if(n == NULL){
+      return ;
+    }
+    
+    if((n->num == num)&& (n->decimal == decimal)){
+      min_diff_num = num;
+      min_diff_decimal = decimal;
+      return;
+
+    }
+
+    if(min_diff > abs(n->num - num)){
+      min_diff = abs(n->num - num);
+      min_diff_num = n->num;
+      min_diff_decimal = n->decimal;
+    }
+    if(num < n->num){
+      asearchhelper(n->left, num, decimal, min_diff, min_diff_num, min_diff_decimal);
+    }
+    else{
+      asearchhelper(n->right, num, decimal, min_diff, min_diff_num, min_diff_decimal);
+    }
+
+
+}
+
+int wrapperasearch(Node *n, int num, int decimal){
+  int min_diff = INT_MAX, min_diff_num, min_diff_decimal = -1;
+  asearchhelper(n,num,decimal,min_diff,min_diff_num, min_diff_decimal);
+  return min_diff_num;
+}
+
+int wrapperasearchdecimal(Node*n, int num, int decimal){
+  int min_diff = INT_MAX, min_diff_num, min_diff_decimal = -1;
+  asearchhelper(n,num,decimal,min_diff,min_diff_num,min_diff_decimal);
+  return min_diff_decimal;
+}
+
 void avl::approx_search(int num, int decimal){
 
+  cout <<"closest to " << num  << "." << decimal << " is " << wrapperasearch(root, num, decimal) << "." << wrapperasearchdecimal(root, num, decimal) << endl;
+      
 }
