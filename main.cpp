@@ -7,7 +7,7 @@
 #include <vector>
 
 using namespace std;
-/*
+
 int main(){
   
     avl a(1);
@@ -33,79 +33,4 @@ int main(){
     cout << "inorder traversal" << endl;
     a.in_order();
 } 
-    */
-int main(int argc, char* argv[]){
-
-    string queryStr = argv[1];
-    vector<string> queryVect;
-    string delim = ", ";
-
-    int start = 0;
-    int end = 0;
-    while (start < queryStr.size() )
-    {
-        end = queryStr.find(delim, start);  
-        if (end == string::npos)
-        {   
-            break;
-        }
-
-        queryVect.push_back(queryStr.substr(start, end - start) );  
-        start = end + delim.size();
-    }
-
-    queryVect.push_back(queryStr.substr(start) );  
-
-    avl t(stoi(queryVect.at(0)) );   
-
-    for (int i = 1; i < queryVect.size(); i++)
-    {
-        string qry = queryVect.at(i);
-
-        vector<std::string> qryParam;
-        stringstream strm(qry);
-        string paramStr = "";
-        while (std::getline(strm, paramStr, ' ') )
-        {
-            qryParam.push_back(paramStr);
-        }
-
-        
-
-        std::string qryType = qryParam.at(0);
-
-        if (qryType == "search")
-        {
-            t.search(stoi(qryParam[1]), stoi(qryParam[2]) );
-        }
-
-        else if (qryType == "approx_search")
-        {
-            t.approx_search(stoi(qryParam[1]), stoi(qryParam[2]) );
-        }
-
-        else if (qryType == "insert")
-        {
-            t.insert(stoi(qryParam[1]), stoi(qryParam[2]) );
-        }
-
-        else if (qryType == "delete")
-        {
-            t.Delete(stoi(qryParam[1]), stoi(qryParam[2]) );
-        }
-
-        else if (qryType == "in_order")
-        {
-            t.in_order();
-        }
-
-        else if (qryType == "pre_order")
-        {
-            t.preorder();
-        }
-    }
-
-    return 0;
-}
-
 

@@ -153,11 +153,14 @@ int balancef(Node* n){
   }
   
   else if(n->right == NULL){
-    return height(n->left)- 0;
+    return height(n->left);
   }
+  
   
   else{
     return height(n->left)- height(n->right);
+    cout << "left height" << height(n->left) << endl;
+    cout << "right height" << height(n->right) << endl;
   }
 }
 
@@ -192,7 +195,9 @@ Node* insertH(Node* n, int num, int decimal, int k){
   
   
   if((balance > k) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
-
+    cout << "balance is " << balance <<endl;
+    cout << "k is " << k << endl;
+    cout << "right rotation" << endl;
     return rr(n);
   }
 
@@ -200,20 +205,20 @@ Node* insertH(Node* n, int num, int decimal, int k){
 
   if((balance < (-1* k)) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
     
-   
+   cout << "left rotation" << endl;
     return lr(n);
   }
  
 
   if((balance > k)  &&  biggerkey(num, decimal, n->left->num, n->left->decimal)){
-    
+    cout << "left right rotation" << endl;
     n->left = lr(n->left);
     return rr(n);
   }
   
 
   if((balance < (-1*k)) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
-    
+    cout << "right left rotation" << endl;
     n->right = rr(n->right);
     return lr(n);
   }
