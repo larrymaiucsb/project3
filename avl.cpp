@@ -12,10 +12,12 @@ avl::avl(int k){
 }
 void avl::preorder() const {
     preorder(root);
+    cout << " " << endl;
 }
 
 void avl::in_order() const {
-  in_order(root);
+  in_order(root); 
+  cout << " " << endl;
 }
 
 
@@ -76,7 +78,7 @@ Node *rr(Node *y)  {
 bool biggerkey(int num1, int decimal1, int num2, int decimal2){
   if((num1 > num2)|| (num1 == num2)){
     if(decimal1 > decimal2){
-      cout << "num1 bigger" << endl;
+      
       return true;
     }
     else if(num1 > num2){
@@ -92,26 +94,10 @@ bool biggerkey(int num1, int decimal1, int num2, int decimal2){
 
   
 } 
-/*
 
-bool biggerkey(int num1, int decimal1, int num2, int decimal2){
-  if(num1 > num2){
-    return true;
-  }
-  else if(num1 == num2){
-    if(decimal1 > decimal2){
-      return true;
-    }
-    
-  }
-  else if(num1 < num2){
-    return false;
-  }
-}
-*/
 void avl::preorder(Node *n) const {
     if (n != NULL) {
-      cout << n->num << "." <<  n->decimal << " " << endl;
+      cout << n->num << "." <<  n->decimal << " ";
       preorder(n->left);
       preorder(n->right);
       
@@ -120,7 +106,7 @@ void avl::preorder(Node *n) const {
   void avl::in_order(Node *n) const{
     if (n != NULL) {
       in_order(n->left);
-      cout << n->num << "." << n->decimal  << " " << endl;
+      cout << n->num << "." << n->decimal  << " ";
       in_order(n->right);
     }
   } 
@@ -145,10 +131,8 @@ int balancef(Node* n){
     return 0 - height(n->right);
   }
   else{
-    cout << "printing left" << endl;
-    cout << height(n->left) << endl;
-    cout << "printing right" << endl;
-    cout << height(n->right) << endl;
+    
+
     return height(n->left)- height(n->right);
   }
 }
@@ -170,47 +154,47 @@ Node* insertH(Node* n, int num, int decimal, int k){
   }
 
   else{
-    cout << "inserting right" << endl;
+    
     n->right= insertH(n->right, num, decimal, k);
-    cout << "inserted right" << endl;
+    
 
   }
   
 
 
   n->height = 1 + max(height(n->left),height(n->right));
-  cout << "finished height" << endl;
+  
   int balance = balancef(n);
-  cout << "finished balance" << endl;
-  cout << balance << endl;
+  
+  
   if((balance > k) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
 
-    cout << "did a left left case" << endl;
+    
     return rr(n);
   }
 
-  cout << "not ll" << endl;
+  
 
   if((balance < (-1* k)) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
-    cout << balance << endl;
-    cout << "did a right right case" << endl;
+    
+   
     return lr(n);
   }
-  cout << "not rr" << endl;
+ 
 
   if((balance > k)  &&  biggerkey(num, decimal, n->left->num, n->left->decimal)){
-    cout << "lr" << endl;
+    
     n->left = lr(n->left);
     return rr(n);
   }
-  cout << "not lr" << endl;
+  
 
   if((balance < (-1*k)) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
-    cout << "rl" << endl;
+    
     n->right = rr(n->right);
     return lr(n);
   }
-cout << "not rl" << endl;
+
   return n;
 
 }
@@ -218,10 +202,12 @@ cout << "not rl" << endl;
 void avl::insert(int num, int decimal){
   if(this->root == NULL){
     this->root = newNode(num,decimal);
+    cout << num << "." << decimal << " inserted" << endl;
   }
   else{
     
     this->root = insertH(this->root, num, decimal,k);
+    cout << num << "." << decimal << " inserted" << endl;
   }
 }
 
@@ -231,7 +217,7 @@ Node * minValueNode(Node* node)
 {  
     Node* current = node;  
   
-    /* loop down to find the leftmost leaf */
+   
     while (current->left != NULL)  
         current = current->left;  
   
@@ -239,30 +225,25 @@ Node * minValueNode(Node* node)
 }  
 
 Node* deleteh(Node* root, int num, int decimal,int k){
-  // STEP 1: PERFORM STANDARD BST DELETE  
+   
     if (root == NULL)  
         return root;  
   
-    // If the key to be deleted is smaller  
-    // than the root's key, then it lies 
-    // in left subtree  
+    
     if (biggerkey(root->num,root->decimal,num,decimal)){ 
-      cout << "lies in left subtree for deletion" << endl;
+      
         root->left = deleteh(root->left, num, decimal, k);  
     }
-    // If the key to be deleted is greater  
-    // than the root's key, then it lies  
-    // in right subtree  
+   
     else if(biggerkey(num,decimal,root->num,root->decimal)){
-      cout << "lies in right subtree for deletion" << endl;
+      
         root->right = deleteh(root->right, num, decimal, k);  
     }
-    // if key is same as root's key, then  
-    // This is the node to be deleted  
+ 
     else
     {  
-      cout<< "found node to delete" << endl;
-        // node with only one child or no child  
+      
+        
         if( (root->left == NULL) || 
             (root->right == NULL) )  
         {  
@@ -270,58 +251,48 @@ Node* deleteh(Node* root, int num, int decimal,int k){
                          root->left :  
                          root->right;  
   
-            // No child case  
+            
             if (temp == NULL)  
             {  
                 temp = root;  
                 root = NULL;  
             }  
-            else // One child case  
-            *root = *temp; // Copy the contents of  
-                           // the non-empty child  
+            else  
+            *root = *temp; 
             free(temp);  
         }  
         else
         {  
-            // node with two children: Get the inorder  
-            // successor (smallest in the right subtree)  
+             
             Node* temp = minValueNode(root->right);  
   
-            // Copy the inorder successor's  
-            // data to this node  
+            
             root->num = temp->num;  
             root->decimal = temp->decimal;
-  
-            // Delete the inorder successor  
+   
             root->right = deleteh(root->right,  
                                      temp->num,temp->decimal, k);  
-            cout<< "inorder succ deleted" << endl;
+            
         }  
     }  
   
-    // If the tree had only one node 
-    // then return  
+     
     if (root == NULL)  
     return root;  
   
-    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE  
+    
     root->height = 1 + max(height(root->left),  
                            height(root->right));  
   
-    // STEP 3: GET THE BALANCE FACTOR OF  
-    // THIS NODE (to check whether this  
-    // node became unbalanced)  
+   
     int balance = balancef(root);  
   
-    // If this node becomes unbalanced,  
-    // then there are 4 cases  
-  
-    // Left Left Case  
+ 
     if (balance > k &&  
         balancef(root->left) >= 0)  
         return rr(root);  
   
-    // Left Right Case  
+    
     if (balance > k &&  
         balancef(root->left) < 0)  
     {  
@@ -329,12 +300,12 @@ Node* deleteh(Node* root, int num, int decimal,int k){
         return rr(root);  
     }  
   
-    // Right Right Case  
+     
     if (balance < (-1*k) &&  
        balancef(root->right) <= 0)  
         return lr(root);  
   
-    // Right Left Case  
+      
     if (balance < (-1*k) &&  
         balancef(root->right) > 0)  
     {  
@@ -359,13 +330,12 @@ bool findh(struct Node* node, int num, int decimal)
     if ((node->num == num) && (node->decimal == decimal))
         return true;
  
-    /* then recur on left sutree */
+  
     bool res1 = findh(node->left, num,decimal);
-    // node found, no need to look further
+    
     if(res1) return true; 
  
-    /* node is not found in left, 
-    so recur on right subtree */
+
     bool res2 = findh(node->right, num,decimal);
  
     return res2;
