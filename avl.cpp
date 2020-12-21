@@ -142,7 +142,6 @@ void avl::preorder(Node *n) const {
     
     
     else{
-      cout << "test23123123123" << endl;
       in_order(n->left);
         cout << " " << n->num << "." << n->decimal;
         in_order(n->right);
