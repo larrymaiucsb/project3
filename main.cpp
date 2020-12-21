@@ -18,9 +18,8 @@ int main(){
     a.search(50,0);
     a.approx_search(10,0);
     a.approx_search(2000,1);
-    a.Delete(10,0);
-    a.Delete(20,0);
-    a.Delete(30,0);
+    a.Delete(9,1);
+
 
 
     cout << "Preorder traversal of the "

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include<bits/stdc++.h>
+#include <cstdlib>
 
 using namespace std;
 
@@ -76,6 +77,9 @@ bool biggerkey(int num1, int decimal1, int num2, int decimal2){
     }
     else if(num1 > num2){
       return true;
+    }
+    else{
+      return false;
     }
   }
   else if(num1 < num2){
@@ -239,7 +243,7 @@ Node* deleteh(Node* root, int num, int decimal){
     // than the root's key, then it lies 
     // in left subtree  
     if (biggerkey(root->num,root->decimal,num,decimal)){ 
-      cout << "lies in right subtree for deletion" << endl;
+      cout << "lies in left subtree for deletion" << endl;
         root->left = deleteh(root->left, num, decimal);  
     }
     // If the key to be deleted is greater  
@@ -247,7 +251,7 @@ Node* deleteh(Node* root, int num, int decimal){
     // in right subtree  
     else if(biggerkey(num,decimal,root->num,root->decimal)){
       cout << "lies in right subtree for deletion" << endl;
-        root->right = deleteh(root->right, num,decimal);  
+        root->right = deleteh(root->right, num, decimal);  
     }
     // if key is same as root's key, then  
     // This is the node to be deleted  
@@ -338,7 +342,9 @@ Node* deleteh(Node* root, int num, int decimal){
 }
 
 void avl::Delete(int num, int decimal){
-  cout << deleteh(this->root, num, decimal) << endl;
+  
+  deleteh(this->root, num, decimal);
+  cout << num << "." << decimal << " deleted" << endl;
 }
 
 bool findh(struct Node* node, int num, int decimal)
