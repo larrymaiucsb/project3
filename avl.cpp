@@ -114,20 +114,33 @@ bool biggerkey(int num1, int decimal1, int num2, int decimal2){
 }
 bool firsttime1 = true;
 bool firsttime2 = true;
+int counter1 = 0;
+int counter2 = 0;
 void avl::preorder(Node *n) const {
   if (n != NULL) {  
-      cout << n->num << "." << n->decimal << " ";
+    if(counter1 == 0){
+      counter1++;
+      cout << n->num << "." << n->decimal;
       preorder(n->left);
       preorder(n->right);
-      
     }
+    else{
+      cout << " " << n->num << "." << n->decimal;
+    }
+  }
 }
   void avl::in_order(Node *n) const{
     if (n != NULL) {
+      if(counter2 == 0){
+        counter2++;
           in_order(n->left);
-          cout << n->num << "." << n->decimal << " ";
+          cout << n->num << "." << n->decimal;
           in_order(n->right);
         }
+    }
+    else{
+      cout << " " << n->num << "." << n->decimal;
+    }
 } 
   
 
