@@ -12,12 +12,12 @@ avl::avl(int k){
 }
 void avl::preorder() const {
     preorder(root);
-    cout << " " << endl;
+    cout << endl;
 }
 
 void avl::in_order() const {
   in_order(root); 
-  cout << " " << endl;
+  cout << endl;
 }
 
 
@@ -114,7 +114,7 @@ bool biggerkey(int num1, int decimal1, int num2, int decimal2){
 }
 void avl::preorder(Node *n) const {
     if (n != NULL) {
-      cout << n->num << "." << n->decimal;
+      cout << n->num << "." << n->decimal << " ";
       preorder(n->left);
       preorder(n->right);
       
@@ -124,7 +124,7 @@ void avl::preorder(Node *n) const {
   void avl::in_order(Node *n) const{
     if (n != NULL) {
       in_order(n->left);
-      cout << n->num << "." << n->decimal;
+      cout << n->num << "." << n->decimal << " ";
       in_order(n->right);
     }
   } 
