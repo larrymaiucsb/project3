@@ -197,20 +197,20 @@ Node* insertH(Node* n, int num, int decimal, int k){
 
   if((balance < (-1* k)) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
     
-   cout << "lr rotation" << endl;
+   
     return lr(n);
   }
  
 
   if((balance > k)  &&  biggerkey(num, decimal, n->left->num, n->left->decimal)){
-    cout << "lr rotation" << endl;
+    
     n->left = lr(n->left);
     return rr(n);
   }
   
 
   if((balance < (-1*k)) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
-    cout << "rl rotation" << endl;
+    
     n->right = rr(n->right);
     return lr(n);
   }
