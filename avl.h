@@ -15,7 +15,7 @@ class Node
     int height = 1; 
     int num;
     int decimal; 
-
+    
     
 };  
 
@@ -33,6 +33,8 @@ class avl{
     void preorder() const;
     
     Node *root = NULL;
+    int k;
+    avl(int k);
 
   private:
   

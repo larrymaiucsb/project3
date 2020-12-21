@@ -6,6 +6,10 @@
 
 using namespace std;
 
+avl::avl(int k){
+  root = nullptr;
+  this->k = k;
+}
 void avl::preorder() const {
     preorder(root);
 }

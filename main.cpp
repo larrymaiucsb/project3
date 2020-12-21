@@ -5,7 +5,8 @@ using namespace std;
 
 
 int main(){
-    avl a;
+    avl a(1);
+    
       
     cout << "humguh" << endl;
     a.insert(10,0);
