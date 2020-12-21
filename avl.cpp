@@ -74,7 +74,7 @@ Node *rr(Node *y)  {
 
 
 
-
+/*
 bool biggerkey(int num1, int decimal1, int num2, int decimal2){
   if((num1 > num2)|| (num1 == num2)){
     if(decimal1 > decimal2){
@@ -94,7 +94,24 @@ bool biggerkey(int num1, int decimal1, int num2, int decimal2){
 
   
 } 
+*/
 
+bool biggerkey(int num1, int decimal1, int num2, int decimal2){
+  if(num1 < num2){
+    return false;
+  }
+  else if (num1 == num2){
+    if(decimal1 < decimal2){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+  else{
+    return true;
+  }
+}
 void avl::preorder(Node *n) const {
     if (n != NULL) {
       cout << n->num << "." <<  n->decimal << " ";
@@ -126,13 +143,17 @@ int balancef(Node* n){
   if (n == NULL){
     return 0;
   }
-
+    
   else if(n->left == NULL){
+    
     return 0 - height(n->right);
   }
+  
+  else if(n->right == NULL){
+    return height(n->left)- 0;
+  }
+  
   else{
-    
-
     return height(n->left)- height(n->right);
   }
 }
@@ -169,7 +190,6 @@ Node* insertH(Node* n, int num, int decimal, int k){
   
   if((balance > k) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
 
-    
     return rr(n);
   }
 
@@ -177,20 +197,20 @@ Node* insertH(Node* n, int num, int decimal, int k){
 
   if((balance < (-1* k)) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
     
-   
+   cout << "lr rotation" << endl;
     return lr(n);
   }
  
 
   if((balance > k)  &&  biggerkey(num, decimal, n->left->num, n->left->decimal)){
-    
+    cout << "lr rotation" << endl;
     n->left = lr(n->left);
     return rr(n);
   }
   
 
   if((balance < (-1*k)) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
-    
+    cout << "rl rotation" << endl;
     n->right = rr(n->right);
     return lr(n);
   }

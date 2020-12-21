@@ -8,13 +8,15 @@
 
 using namespace std;
 /*
+int main(){
+  
+    avl a(1);
      
-    a.insert(10,0);
-    a.insert(20,0);
-    a.insert(30,0);
-    a.insert(40,0);
-    a.insert(50,0);
-    a.insert(25,0);
+    a.insert(4,5);
+    a.insert(3,9);
+    a.insert(3,5);
+    a.insert(2,7);
+    a.insert(2,6);
     a.search(99,0);
     a.search(50,0);
     a.approx_search(10,0);
@@ -30,10 +32,9 @@ using namespace std;
     
     cout << "inorder traversal" << endl;
     a.in_order();
-      
+} 
     */
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]){
 
     string queryStr = argv[1];
     vector<string> queryVect;
@@ -106,4 +107,5 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+
 
