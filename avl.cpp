@@ -156,7 +156,7 @@ int balancef(Node* n){
 
 
 
-Node* insertH(Node* n, int num, int decimal){
+Node* insertH(Node* n, int num, int decimal, int k){
   if(n == nullptr){
     return newNode(num, decimal);
   }
@@ -166,12 +166,12 @@ Node* insertH(Node* n, int num, int decimal){
   }
 
   else if(biggerkey(n->num, n->decimal, num, decimal) == true){
-    n->left = insertH(n->left, num, decimal);
+    n->left = insertH(n->left, num, decimal, k);
   }
 
   else{
     cout << "inserting right" << endl;
-    n->right= insertH(n->right, num, decimal);
+    n->right= insertH(n->right, num, decimal, k);
     cout << "inserted right" << endl;
 
   }
@@ -183,7 +183,7 @@ Node* insertH(Node* n, int num, int decimal){
   int balance = balancef(n);
   cout << "finished balance" << endl;
   cout << balance << endl;
-  if((balance > 1) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
+  if((balance > k) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
 
     cout << "did a left left case" << endl;
     return rr(n);
@@ -191,21 +191,21 @@ Node* insertH(Node* n, int num, int decimal){
 
   cout << "not ll" << endl;
 
-  if((balance < -1) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
+  if((balance < (-1* k)) && biggerkey(num, decimal, n->right->num, n->right->decimal)) {
     cout << balance << endl;
     cout << "did a right right case" << endl;
     return lr(n);
   }
   cout << "not rr" << endl;
 
-  if((balance > 1)  &&  biggerkey(num, decimal, n->left->num, n->left->decimal)){
+  if((balance > k)  &&  biggerkey(num, decimal, n->left->num, n->left->decimal)){
     cout << "lr" << endl;
     n->left = lr(n->left);
     return rr(n);
   }
   cout << "not lr" << endl;
 
-  if((balance < -1) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
+  if((balance < (-1*k)) && biggerkey(n->left->num, n->left->decimal, num, decimal)){
     cout << "rl" << endl;
     n->right = rr(n->right);
     return lr(n);
@@ -221,7 +221,7 @@ void avl::insert(int num, int decimal){
   }
   else{
     
-    this->root = insertH(this->root, num, decimal);
+    this->root = insertH(this->root, num, decimal,k);
   }
 }
 
@@ -238,7 +238,7 @@ Node * minValueNode(Node* node)
     return current;  
 }  
 
-Node* deleteh(Node* root, int num, int decimal){
+Node* deleteh(Node* root, int num, int decimal,int k){
   // STEP 1: PERFORM STANDARD BST DELETE  
     if (root == NULL)  
         return root;  
@@ -248,14 +248,14 @@ Node* deleteh(Node* root, int num, int decimal){
     // in left subtree  
     if (biggerkey(root->num,root->decimal,num,decimal)){ 
       cout << "lies in left subtree for deletion" << endl;
-        root->left = deleteh(root->left, num, decimal);  
+        root->left = deleteh(root->left, num, decimal, k);  
     }
     // If the key to be deleted is greater  
     // than the root's key, then it lies  
     // in right subtree  
     else if(biggerkey(num,decimal,root->num,root->decimal)){
       cout << "lies in right subtree for deletion" << endl;
-        root->right = deleteh(root->right, num, decimal);  
+        root->right = deleteh(root->right, num, decimal, k);  
     }
     // if key is same as root's key, then  
     // This is the node to be deleted  
@@ -294,7 +294,7 @@ Node* deleteh(Node* root, int num, int decimal){
   
             // Delete the inorder successor  
             root->right = deleteh(root->right,  
-                                     temp->num,temp->decimal);  
+                                     temp->num,temp->decimal, k);  
             cout<< "inorder succ deleted" << endl;
         }  
     }  
@@ -317,12 +317,12 @@ Node* deleteh(Node* root, int num, int decimal){
     // then there are 4 cases  
   
     // Left Left Case  
-    if (balance > 1 &&  
+    if (balance > k &&  
         balancef(root->left) >= 0)  
         return rr(root);  
   
     // Left Right Case  
-    if (balance > 1 &&  
+    if (balance > k &&  
         balancef(root->left) < 0)  
     {  
         root->left = lr(root->left);  
@@ -330,12 +330,12 @@ Node* deleteh(Node* root, int num, int decimal){
     }  
   
     // Right Right Case  
-    if (balance < -1 &&  
+    if (balance < (-1*k) &&  
        balancef(root->right) <= 0)  
         return lr(root);  
   
     // Right Left Case  
-    if (balance < -1 &&  
+    if (balance < (-1*k) &&  
         balancef(root->right) > 0)  
     {  
         root->right = rr(root->right);  
@@ -347,7 +347,7 @@ Node* deleteh(Node* root, int num, int decimal){
 
 void avl::Delete(int num, int decimal){
   
-  deleteh(this->root, num, decimal);
+  deleteh(this->root, num, decimal, k);
   cout << num << "." << decimal << " deleted" << endl;
 }
 

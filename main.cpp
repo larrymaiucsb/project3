@@ -20,6 +20,7 @@ int main(){
     a.approx_search(10,0);
     a.approx_search(2000,1);
     a.Delete(9,1);
+    a.Delete(10,0);
 
 
 
